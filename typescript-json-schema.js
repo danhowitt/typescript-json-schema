@@ -106,6 +106,10 @@ var TJS;
                 case "any":
                     definition.type = "object";
                     break;
+                case "date":
+                    definition.type = "string";
+                    definition.format = "date-time";
+                    break;
                 default:
                     if (propertyType.flags & ts.TypeFlags.Tuple) {
                         var tupleType = propertyType;
@@ -273,7 +277,7 @@ var TJS;
             if (unionModifier === void 0) { unionModifier = "oneOf"; }
             var fullName = tc.typeToString(typ, undefined, ts.TypeFormatFlags.UseFullyQualifiedType);
             var definition = {};
-            if (!typ.getSymbol() || typ.getSymbol().name == "Array") {
+            if (!typ.getSymbol() || typ.getSymbol().name == "Array" || typ.getSymbol().name == "Date") {
                 return this.getDefinitionForRootType(typ, tc, definition, unionModifier);
             }
             if (!asRef || !this.reffedDefinitions[fullName]) {
